@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Oswald', sans-serif;
+}
+
+button{
+    border: none;
+    outline: none;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.login_wrapper{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    flex-flow: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.login_heading{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-size: 50px;
+    text-transform: uppercase;
+}
+
+.covid_icon{
+    width: 50px;
+}
