@@ -38,7 +38,36 @@ LiquidCrystal_I2C lcd(0x3F, lcdColumns, lcdRows);
 uint32_t tsLastReport = 0;
 
 void onBeatDetected() {
-  Serial.println("Beat!");
+  Serial.println("Beat Detected!");
+  // put your main code here, to run repeatedly:
+  temperature = dht.readTemperature(); // temperature
+  heartRate = max_sensor.getHeartRate(); // heart rate
+  oxygenLevel = max_sensor.getSpO2(); // oxygen levels
+
+  Serial.println("Sending Readings to Server");
+  payload = sendReadingsToServer();
+
+  Serial.print("[RESPONSE FROM SERVER]: ");
+  Serial.println(payload);
+
+  if (millis() - lastReportTime > REPORTING_PERIOD_MS) {
+    Serial.print("Temperature: ");
+    Serial.print(temperature);
+    Serial.println("°C");
+    
+    Serial.print("Heart Rate: ");
+    Serial.println(heartRate);
+    
+    Serial.print("Oxygen Level: ");
+    Serial.print(oxygenLevel);
+    Serial.println("%");
+
+    showReadingsOnLCD(); // show readings on LCD
+    
+    Serial.println("*********************************");
+    Serial.println();
+    lastReportTime = millis();
+  }
 }
 
 void setup() {
@@ -74,7 +103,7 @@ void setup() {
     }
     
   } else {
-      Serial.println("PULSE SENSOR SETUP SUCCESSFULL");
+    Serial.println("PULSE SENSOR SETUP SUCCESSFULL");
   }
   max_sensor.setOnBeatDetectedCallback(onBeatDetected);
 
@@ -83,40 +112,19 @@ void setup() {
   sensor.setLedsPulseWidth(MAX30100_SPC_PW_1600US_16BITS);
   sensor.setSamplingRate(MAX30100_SAMPRATE_100HZ);
   sensor.setHighresModeEnabled(true);
+
+  temperature = dht.readTemperature(); // read room temperatures
+
+  Serial.print("Room Temperature: ");
+  Serial.print(temperature);
+  Serial.println("°C");
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  temperature = dht.readTemperature(); // temperature
-  heartRate = max_sensor.getHeartRate(); // heart rate
-  oxygenLevel = max_sensor.getSpO2(); // oxygen levels
 
-  payload = sendReadingsToServer();
+  max_sensor.update(); // update pulse sensor
 
-  Serial.print("[RESPONSE FROM SERVER]: ");
-  Serial.println(payload);
-
-  max_sensor.update();
-
-  if (millis() - lastReportTime > REPORTING_PERIOD_MS) {
-    Serial.print("Room Temperature: ");
-    Serial.print(t);
-    Serial.println("°C");
-    
-    Serial.print("Heart Rate: ");
-    Serial.println(heartRate);
-    
-    Serial.print("Oxygen Level: ");
-    Serial.print(oxygenLevel);
-    Serial.println("%");
-
-    showReadingsOnLCD(); // show readings on LCD
-    
-    Serial.println("*********************************");
-    Serial.println();
-    lastReportTime = millis();
-  }
-
+  // nothing to do here
 }
 
 void setupLCD() {
@@ -194,6 +202,7 @@ String sendReadingsToServer() {
   HTTPClient http;
 
   // Set the URL for the request
+  // String url = "http://covidtester.great-site.net/rx.php?temperature="+temperature+"&heartRate="+heartRate+"&oxygenLevel="+oxygenLevel;
   String url = "http://192.168.232.138/covidtester/rx.php?temperature="+temperature+"&heartRate="+heartRate+"&oxygenLevel="+oxygenLevel;
 
   // Send the GET request
