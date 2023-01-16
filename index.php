@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,16 +17,29 @@
         if (!isset($_SESSION['account_type'] )) {
             # code...?>
             <div class="login_wrapper">
+                <div class="error_notice invalidUser">
+                    Invalid User!
+                </div>
+                <div class="error_notice incorrectPassword">
+                    Incorrect Password!
+                </div>
+                <div class="error_notice invalidAccount">
+                    Invalid Account Type!
+                </div>
+
                 <h1 class="login_heading">c<img class="covid_icon" src="./icons/coronavirus.png" alt="">vid tester</h1>
-                <form>
+                <form class="login_form">
                     <input type="text" name="username" id="username" placeholder="username">
                     <input type="password" name="password" id="password" placeholder="password">
-                    <div class="mode_wrapper">
+                    <div class="show_password_wrapper">
+                        <input type="checkbox" name="showPassword" id="show-password" > <label for="show-password">show password</label>
+                    </div>
+                    <div class="login_form_footer">
                         <select name="account_type" id="account_type">
                             <option value="Patient">Patient</option>
                             <option value="Doctor">Doctor</option>
                         </select>
-                        <button type="button">login</button>
+                        <button type="button" class="login_submit">login</button>
                     </div>
                 </form>
             </div>
@@ -77,6 +91,9 @@
                 <?php
             } else if ($_SESSION['account_type'] == 'Patient') {
                 # code...?>
+                <nav>
+                    <a href="./logout.php">logout</a>
+                </nav>
                 <ul class="readings">
                     <li>
                         <strong> Heart Rate: </strong>

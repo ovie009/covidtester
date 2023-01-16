@@ -1,15 +1,70 @@
+/* import font */
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&display=swap');
 
-*{
-    margin: 0;
-    padding: 0;
+/* RESET STYLESHEET */
+/*
+  1. Use a more-intuitive box-sizing model.
+*/
+*, *::before, *::after {
     box-sizing: border-box;
+}
+/*
+2. Remove default margin
+*/
+* { 
+    margin: 0;
+}
+/*
+3. Allow percentage-based heights in the application
+*/
+html, body {
+    height: 100%;
+}
+/*
+Typographic tweaks!
+4. Add accessible line-height
+5. Improve text rendering
+*/
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+/*
+6. Improve media defaults
+*/
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+}
+/*
+7. Remove built-in form typography styles
+*/
+input, button, textarea, select {
+    font: inherit;
+}
+/*
+8. Avoid text overflows
+*/
+p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+}
+/*
+9. Create a root stacking context
+*/
+#root, #__next {
+    isolation: isolate;
+}
+/* END OF RESET STYLESHEET */
+
+
+*{
     font-family: 'Oswald', sans-serif;
 }
 
 button{
     border: none;
     outline: none;
+    cursor: pointer;
 }
 
 a{
@@ -39,4 +94,98 @@ a{
 
 .covid_icon{
     width: 50px;
+}
+
+.login_form{
+    width: 90%;
+    min-height: 200px;
+    max-width: 400px;
+    box-shadow: 0 0 5px 5px lightgray;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#password, #username{
+    width: 100%;
+    height: 50px;
+    padding: 5px;
+    background-color: hsl(197, 71%, 93%);
+    border: 1px solid skyblue;
+    border-radius: 5px;
+    outline: none;
+}
+
+::placeholder{
+    /* padding-inline: 5px; */
+}
+
+.login_form_footer{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.login_form_footer button{
+    padding: 10px 20px;
+    background-color: skyblue;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    outline: none;
+}
+
+select{
+    outline: none;
+    padding-inline: 10px;
+}
+
+/* Change Autocomplete styles in Chrome*/
+/* input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus
+input:-webkit-autofill, 
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid skyblue;
+  box-shadow: 0 0 0px 1000px hsl(197, 71%, 93%) inset;
+} */
+
+.error_notice{
+    position: fixed;
+    top: 150px;
+    width: 70%;
+    max-width: 300px;
+    display: grid;
+    place-content: center;
+    height: 60px;
+    z-index: 10;
+    border: 1px solid hsl(9, 100%, 54%);
+    border-radius: 5px;
+    background-color: hsl(0, 80%, 90%);
+    color: hsl(9, 100%, 54%);
+    transition: 0.5s;
+    opacity: 0;
+}
+
+.input_error{
+    /* border: 1px solid red; */
+    box-shadow: 0 0 2px 2px tomato;
+}
+
+.show_password_wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
 }
