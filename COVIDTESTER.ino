@@ -71,7 +71,6 @@ void onBeatDetected() {
     lastReportTime = millis();
   }
 
-  max_sensor.update(); // update pulse sensor
 }
 
 void setup() {
@@ -126,7 +125,9 @@ void setup() {
 
 void loop() {
 
+  max_sensor.update(); // update pulse sensor
 
+  // nothing to do here
 }
 
 void setupLCD() {
