@@ -5,9 +5,9 @@ $(document).ready(function() {
         let username = $("#username").val()
         let password = $("#password").val()
         let accountType = $("#account_type").val()
-        console.log(username);
-        console.log(password);
-        console.log(accountType);
+        // console.log(username);
+        // console.log(password);
+        // console.log(accountType);
         $.ajax({
         type: 'POST',
         url: 'login.php',

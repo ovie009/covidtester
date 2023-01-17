@@ -45,6 +45,9 @@
             </div>
             <?php
         } else {
+            ?><nav>
+                <a href="./logout.php">logout</a>
+            </nav><?php
             if ($_SESSION['account_type'] == 'Doctor') {
                 # code...?>
                 <table>
@@ -91,9 +94,7 @@
                 <?php
             } else if ($_SESSION['account_type'] == 'Patient') {
                 # code...?>
-                <nav>
-                    <a href="./logout.php">logout</a>
-                </nav>
+
                 <ul class="readings">
                     <li>
                         <strong> Heart Rate: </strong>

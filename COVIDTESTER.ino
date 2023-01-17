@@ -6,7 +6,6 @@
 #include "DHT.h" 
 #include "MAX30100_PulseOximeter.h"
 #include "WiFi.h"
-#include "WiFiClient.h"
 #include "HTTPClient.h"
 
 // WiFi Credentials
@@ -128,7 +127,7 @@ void loop() {
 }
 
 void setupLCD() {
-  lcd.init();
+  lcd.begin();
   // turn on LCD backlight                      
   lcd.backlight();
   // Initialize LCD and print
@@ -144,8 +143,6 @@ void setupLCD() {
   delay(7000);
   lcd.clear();
   
-  
-   
   lcd.setCursor(9, 0);
   lcd.print(" By ");
   lcd.setCursor(2, 1);
@@ -202,8 +199,8 @@ String sendReadingsToServer() {
   HTTPClient http;
 
   // Set the URL for the request
-  // String url = "http://covidtester.great-site.net/rx.php?temperature="+temperature+"&heartRate="+heartRate+"&oxygenLevel="+oxygenLevel;
-  String url = "http://192.168.232.138/covidtester/rx.php?temperature="+temperature+"&heartRate="+heartRate+"&oxygenLevel="+oxygenLevel;
+  // String url = "http://192.168.232.138/covidtester/rx.php?temperature="+String(temperature)+"&heartRate="+String(heartRate)+"&oxygenLevel="+String(oxygenLevel);
+  String url = "http://covidtester.great-site.net/rx.php?temperature="+String(temperature)+"&heartRate="+String(heartRate)+"&oxygenLevel="+String(oxygenLevel);
 
   // Send the GET request
   http.begin(url);

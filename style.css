@@ -120,10 +120,6 @@ a{
     outline: none;
 }
 
-::placeholder{
-    /* padding-inline: 5px; */
-}
-
 .login_form_footer{
     display: flex;
     width: 100%;
