@@ -40,12 +40,38 @@ uint32_t tsLastReport = 0;
 
 void onBeatDetected() {
   Serial.println("Beat Detected!");
+  temperature = dht.readTemperature(); // temperature
+  heartRate = max_sensor.getHeartRate(); // heart rate
+  oxygenLevel = max_sensor.getSpO2(); // oxygen levels
+
   // put your main code here, to run repeatedly:
   Serial.println("Sending Readings to Server");
   payload = sendReadingsToServer();
 
   Serial.print("[RESPONSE FROM SERVER]: ");
   Serial.println(payload);
+
+
+  if (millis() - lastReportTime > REPORTING_PERIOD_MS) {
+    Serial.print("Temperature: ");
+    Serial.print(temperature);
+    Serial.println("°C");
+    
+    Serial.print("Heart Rate: ");
+    Serial.println(heartRate);
+    
+    Serial.print("Oxygen Level: ");
+    Serial.print(oxygenLevel);
+    Serial.println("%");
+
+    showReadingsOnLCD(); // show readings on LCD
+    
+    Serial.println("*********************************");
+    Serial.println();
+    lastReportTime = millis();
+  }
+
+  max_sensor.update(); // update pulse sensor
 }
 
 void setup() {
@@ -101,30 +127,6 @@ void setup() {
 void loop() {
 
 
-  temperature = dht.readTemperature(); // temperature
-  heartRate = max_sensor.getHeartRate(); // heart rate
-  oxygenLevel = max_sensor.getSpO2(); // oxygen levels
-
-  max_sensor.update(); // update pulse sensor
-
-  if (millis() - lastReportTime > REPORTING_PERIOD_MS) {
-    Serial.print("Temperature: ");
-    Serial.print(temperature);
-    Serial.println("°C");
-    
-    Serial.print("Heart Rate: ");
-    Serial.println(heartRate);
-    
-    Serial.print("Oxygen Level: ");
-    Serial.print(oxygenLevel);
-    Serial.println("%");
-
-    showReadingsOnLCD(); // show readings on LCD
-    
-    Serial.println("*********************************");
-    Serial.println();
-    lastReportTime = millis();
-  }
 }
 
 void setupLCD() {

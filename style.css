@@ -211,7 +211,9 @@ nav{
     flex-flow: column;
     justify-content: flex-start;
     align-items: center;
-    padding-block: 50px;
+    padding-block: 50px 60px;
+    min-height: calc(100vh - 60px);
+    position: relative;
 }
 
 .readings{
@@ -271,6 +273,7 @@ tr{
 td{
     border: none;
     padding-block: 10px;
+    position: relative;
 }
 
 tr td:last-child{
@@ -294,4 +297,24 @@ tr td:last-child{
 
 .show_buttons_wrapper button:hover{
     background-color: hsl(197, 71%, 63%);
+}
+
+.contact_doctor{
+    padding: 20px 10px;
+    background-color: skyblue;
+    border-radius: 5px;
+    outline: none;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    bottom: 60px;
+}
+
+.telephone_icon{
+    position: absolute;
+    width: 20px;
+    bottom: 0px;
+    right: 0px;
 }

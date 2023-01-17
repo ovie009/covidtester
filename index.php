@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>covid tester</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="./icons/coronavirus.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./images/coronavirus.png" type="image/x-icon">
     <script src="./jquery-3.4.1.min.js"></script>
     <script src="./main.js"></script>
 </head>
@@ -61,7 +61,9 @@
                             <th>Datetime</th>
                         </tr>
                         <tr>
-                            <td>John Doe</td>
+                            <td>
+                                Johnathan Doe
+                            </td>
                             <td>0</td>
                             <td>0</td>
                             <td>0</td>
@@ -123,6 +125,7 @@
                         </li>
                         <li class="datetime_indicator">2023-01-16 10:30am</li>
                     </ul>
+                    <a class="contact_doctor" href="tel:+2347088960285">Contact Doctor</a>
                 </section>
                 <?php
             }
