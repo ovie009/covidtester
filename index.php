@@ -27,7 +27,7 @@
                     Invalid Account Type!
                 </div>
 
-                <h1 class="login_heading">c<img class="covid_icon" src="./icons/coronavirus.png" alt="">vid tester</h1>
+                <h1 class="login_heading">c<img class="covid_icon" src="./images/coronavirus.png" alt="">vid tester</h1>
                 <form class="login_form">
                     <input type="text" name="username" id="username" placeholder="username">
                     <input type="password" name="password" id="password" placeholder="password">
@@ -46,76 +46,84 @@
             <?php
         } else {
             ?><nav>
-                <a href="./logout.php">logout</a>
+                <a class="logout" href="./logout.php">logout</a>
             </nav><?php
             if ($_SESSION['account_type'] == 'Doctor') {
                 # code...?>
-                <table>
-                    <tr>
-                        <th>Patient</th>
-                        <th>Heart Rate (BPM)</th>
-                        <th>Oxygen Level (%0) </th>
-                        <th>Temperature (<sup>0</sup>C) </th>
-                        <th>Datetime</th>
-                    </tr>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>2023-01-16 10:30am</td>
-                    </tr>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>2023-01-16 10:30am</td>
-                    </tr>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>2023-01-16 10:30am</td>
-                    </tr>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>2023-01-16 10:30am</td>
-                    </tr>
-                </table>
-                <div class="show_buttons_wrapper">
-                    <button type="button">show less</button>
-                    <button type="button">show more</button>
-                </div>
+                <section class="doctor_section">
+                    <h1 class="login_heading">c<img class="covid_icon" src="./images/coronavirus.png" alt="">vid tester</h1>
+                    <table>
+                        <tr>
+                            <th>Patient</th>
+                            <th>Heart Rate (BPM)</th>
+                            <th>Oxygen Level (%0) </th>
+                            <th>Temperature (<sup>0</sup>C) </th>
+                            <th>Datetime</th>
+                        </tr>
+                        <tr>
+                            <td>John Doe</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>2023-01-16 10:30am</td>
+                        </tr>
+                        <tr>
+                            <td>John Doe</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>2023-01-16 10:30am</td>
+                        </tr>
+                        <tr>
+                            <td>John Doe</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>2023-01-16 10:30am</td>
+                        </tr>
+                        <tr>
+                            <td>John Doe</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>2023-01-16 10:30am</td>
+                        </tr>
+                    </table>
+                    <div class="show_buttons_wrapper">
+                        <button type="button">show less</button>
+                        <button type="button">show more</button>
+                    </div>
+                </section>
                 <?php
             } else if ($_SESSION['account_type'] == 'Patient') {
                 # code...?>
-
-                <ul class="readings">
-                    <li>
-                        <strong> Heart Rate: </strong>
-                        <span>
-                            0<sup>BPM</sup>
-                        </span>
-                    </li>
-                    <li>
-                        <strong>Oxygen Levels: </strong>
-                        <span>
-                            0<sup>%</sup> 
-                        </span>
-                    </li>
-                    <li>
-                        <strong>Temperature:</strong>  
-                        <span>
-                            0<sup>0</sup>C 
-                        </span>
-                    </li>
-                    <li>2023-01-16 10:30am</li>
-                </ul>
+                <section class="patient_section">
+                    <h1 class="login_heading">c<img class="covid_icon" src="./images/coronavirus.png" alt="">vid tester</h1>
+                    <ul class="readings">
+                        <li>
+                            <img src="./images/heart-beats.png" alt="heart rate icon">
+                            <strong> Heart Rate: </strong>
+                            <span>
+                                0<sup>BPM</sup>
+                            </span>
+                        </li>
+                        <li>
+                            <img src="./images/oxygen-saturation.png" alt="oxygen level icon">
+                            <strong>Oxygen Levels: </strong>
+                            <span>
+                                0<sup>%</sup> 
+                            </span>
+                        </li>
+                        <li>
+                            <img src="./images/hot.png" alt="temperature icon">
+                            <strong>Temperature:</strong>  
+                            <span>
+                                0<sup>0</sup>C 
+                            </span>
+                        </li>
+                        <li class="datetime_indicator">2023-01-16 10:30am</li>
+                    </ul>
+                </section>
                 <?php
             }
         }
