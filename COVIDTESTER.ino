@@ -127,7 +127,7 @@ void loop() {
 }
 
 void setupLCD() {
-  lcd.begin();
+  lcd.init();
   // turn on LCD backlight                      
   lcd.backlight();
   // Initialize LCD and print
@@ -199,8 +199,7 @@ String sendReadingsToServer() {
   HTTPClient http;
 
   // Set the URL for the request
-  // String url = "http://192.168.232.138/covidtester/rx.php?temperature="+String(temperature)+"&heartRate="+String(heartRate)+"&oxygenLevel="+String(oxygenLevel);
-  String url = "http://covidtester.great-site.net/rx.php?temperature="+String(temperature)+"&heartRate="+String(heartRate)+"&oxygenLevel="+String(oxygenLevel);
+  String url = "http://covidtester.000webhostapp.com/rx.php?temperature="+String(temperature)+"&heartRate="+String(heartRate)+"&oxygenLevel="+String(oxygenLevel);
 
   // Send the GET request
   http.begin(url);
