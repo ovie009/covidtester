@@ -53,43 +53,7 @@
                 <section class="doctor_section">
                     <h1 class="login_heading">c<img class="covid_icon" src="./images/coronavirus.png" alt="">vid tester</h1>
                     <table>
-                        <tr>
-                            <th>Patient</th>
-                            <th>Heart Rate (BPM)</th>
-                            <th>Oxygen Level (%0) </th>
-                            <th>Temperature (<sup>0</sup>C) </th>
-                            <th>Datetime</th>
-                        </tr>
-                        <tr>
-                            <td>
-                                Johnathan Doe
-                            </td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>2023-01-16 10:30am</td>
-                        </tr>
-                        <tr>
-                            <td>John Doe</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>2023-01-16 10:30am</td>
-                        </tr>
-                        <tr>
-                            <td>John Doe</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>2023-01-16 10:30am</td>
-                        </tr>
-                        <tr>
-                            <td>John Doe</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>2023-01-16 10:30am</td>
-                        </tr>
+                        
                     </table>
                     <div class="show_buttons_wrapper">
                         <button type="button">show less</button>
@@ -101,7 +65,7 @@
                 # code...?>
                 <section class="patient_section">
                     <h1 class="login_heading">c<img class="covid_icon" src="./images/coronavirus.png" alt="">vid tester</h1>
-                    <ul class="readings">
+                    <ul id="readings" class="readings">
                         <li>
                             <img src="./images/heart-beats.png" alt="heart rate icon">
                             <strong> Heart Rate: </strong>

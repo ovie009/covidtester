@@ -30,7 +30,7 @@ float temperature, heartRate, oxygenLevel, bodytemperature;
 
 String payload; // response from the server
 
-String patientName = "Jolomi%20Micheal";
+String patientName = "Kelvin%20Godfrey";
  
 DHT dht(DHTPIN, DHTTYPE);
 PulseOximeter pox;

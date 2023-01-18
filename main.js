@@ -56,4 +56,74 @@ $(document).ready(function() {
         }
     });
 
+    console.log(getCookie("account_type"))
+    if (getCookie("account_type") === "Patient") {
+        $.ajax({
+            type: 'GET',
+            data: { id: 1 },
+            url: 'load_readings.php',
+            success: function(response) {
+                $('#readings').html(response);
+                console.log('refreshing data')
+            }
+        });
+
+        setInterval(() => {
+            $.ajax({
+                type: 'GET',
+                data: { id: 1 },
+                url: 'load_readings.php',
+                success: function(response) {
+                    $('#readings').html(response);
+                    console.log('refreshing data')
+                }
+            });
+            
+        }, 5000);
+
+    } else if (getCookie("account_type") === "Doctor") {
+        $.ajax({
+            type: 'GET',
+            data: { id: 1 },
+            url: 'table_readings.php',
+            success: function(response) {
+                $('table').html(response);
+                console.log('refreshing data')
+            }
+        });
+
+        setInterval(() => {
+            $.ajax({
+                type: 'GET',
+                data: { id: 1 },
+                url: 'table_readings.php',
+                success: function(response) {
+                    $('table').html(response);
+                    console.log('refreshing data')
+                }
+            });
+            
+        }, 5000);
+    }
+
+
+
+    
+  // function to get the value of a cookie
+  function getCookie(cookieName) {
+    var name = cookieName + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
 });

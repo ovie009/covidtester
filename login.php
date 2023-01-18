@@ -32,6 +32,8 @@
                         # code...
                         session_start();
                         $_SESSION['account_type'] = $dataAccountType;
+                        $expiration = time() + 7200; // expiration date is two hours from now
+                        setcookie("account_type", $dataAccountType, $expiration);
                         echo "successful";
                         // header("location: index.php?successful");
                         

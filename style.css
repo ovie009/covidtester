@@ -211,7 +211,7 @@ nav{
     flex-flow: column;
     justify-content: flex-start;
     align-items: center;
-    padding-block: 50px 60px;
+    padding-block: 25px 60px;
     min-height: calc(100vh - 60px);
     position: relative;
 }
