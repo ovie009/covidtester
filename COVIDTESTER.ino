@@ -19,7 +19,7 @@ MAX30100 sensor;
 #define DHTTYPE DHT11 
 #define DHTPIN 18
 #define DS18B20 5
-#define REPORTING_PERIOD_MS    3000
+#define REPORTING_PERIOD_MS    1000
 PulseOximeter max_sensor;
 uint32_t lastReportTime = 0;
 int lcdColumns = 20;
@@ -38,8 +38,7 @@ LiquidCrystal_I2C lcd(0x3F, lcdColumns, lcdRows);
 
 void onBeatDetected() { 
   Serial.println("Beat Detected!");
-  heartRate = max_sensor.getHeartRate();
-  oxygenLevel = max_sensor.getSpO2();    
+  lcd.backlight();
 }
 
 void setup() {
@@ -93,22 +92,25 @@ void setup() {
 }
 
 void loop() {
-
   max_sensor.update(); // update pulse sensor
   if (millis() - lastReportTime > REPORTING_PERIOD_MS) {
-
+    heartRate = max_sensor.getHeartRate();
+    oxygenLevel = max_sensor.getSpO2();    
     Serial.print("Heart rate: ");
     Serial.print(heartRate);
     Serial.print("bpm / SpO2: ");
     Serial.print(oxygenLevel);
     Serial.println("%");
 
-    if(oxygenLevel != 0 && heartRate != 0 && temperature != 0){
+    if(oxygenLevel != 0 && heartRate != 0 && temperature != 0 && oxygenLevel < 100){
       Serial.println("sending data to server!"); 
       response = sendReadingsToServer();
 
       Serial.print("[RESPONSE FROM SERVER]: ");
       Serial.println(response);
+
+      showResponseOnLCD(response);
+      showReadingsOnLCD();
 
       heartRate = 0;
       oxygenLevel = 0;
@@ -157,12 +159,17 @@ void setupLCD() {
   lcd.setCursor(1, 3);
   lcd.print("  On The Sensor ");
 
-  delay(3000);
+  delay(5000);
   lcd.clear();
+  lcd.noBacklight();
 }
  
 //  show readings of sensor on LCD
 void showReadingsOnLCD() {
+  // turn on LCD backlight 
+  lcd.clear();                     
+  // lcd.backlight();
+
   lcd.setCursor(2, 0);
   lcd.print("Sensors Readings  ");
   
@@ -181,6 +188,19 @@ void showReadingsOnLCD() {
   lcd.print("HRate: ");
   lcd.print(heartRate);
   lcd.print(" BPM ");
+  delay(7000);
+  lcd.noBacklight();
+  max_sensor.begin();
+  max_sensor.setOnBeatDetectedCallback(onBeatDetected);
+}
+
+void showResponseOnLCD(String text) {
+  // turn on LCD backlight 
+  lcd.clear();                     
+  // lcd.backlight();
+  lcd.setCursor(0, 0);
+  lcd.print(text);
+  delay(5000);
 }
 
 String sendReadingsToServer() {
@@ -208,7 +228,5 @@ String sendReadingsToServer() {
 
   // Close the connection
   http.end();
-  max_sensor.begin();
-  max_sensor.setOnBeatDetectedCallback(onBeatDetected);
   return payload;
 }
