@@ -19,7 +19,7 @@ MAX30100 sensor;
 #define DHTTYPE DHT11 
 #define DHTPIN 18
 #define DS18B20 5
-#define REPORTING_PERIOD_MS    100
+#define REPORTING_PERIOD_MS    3000
 PulseOximeter max_sensor;
 uint32_t lastReportTime = 0;
 int lcdColumns = 20;
@@ -28,49 +28,18 @@ int lcdRows = 4;
 float temperature, heartRate, oxygenLevel, bodytemperature;
 /*Put your SSID & Password*/
 
-String payload; // response from the server
+String response; // response from the server
 
 String patientName = "Kelvin%20Godfrey";
  
 DHT dht(DHTPIN, DHTTYPE);
-PulseOximeter pox;
 LiquidCrystal_I2C lcd(0x3F, lcdColumns, lcdRows);
 
-uint32_t tsLastReport = 0;
 
-void onBeatDetected() {
+void onBeatDetected() { 
   Serial.println("Beat Detected!");
-  temperature = dht.readTemperature(); // temperature
-  heartRate = max_sensor.getHeartRate(); // heart rate
-  oxygenLevel = max_sensor.getSpO2(); // oxygen levels
-
-  // put your main code here, to run repeatedly:
-  Serial.println("Sending Readings to Server");
-  payload = sendReadingsToServer();
-
-  Serial.print("[RESPONSE FROM SERVER]: ");
-  Serial.println(payload);
-
-
-  if (millis() - lastReportTime > REPORTING_PERIOD_MS) {
-    Serial.print("Temperature: ");
-    Serial.print(temperature);
-    Serial.println("°C");
-    
-    Serial.print("Heart Rate: ");
-    Serial.println(heartRate);
-    
-    Serial.print("Oxygen Level: ");
-    Serial.print(oxygenLevel);
-    Serial.println("%");
-
-    showReadingsOnLCD(); // show readings on LCD
-    
-    Serial.println("*********************************");
-    Serial.println();
-    lastReportTime = millis();
-  }
-
+  heartRate = max_sensor.getHeartRate();
+  oxygenLevel = max_sensor.getSpO2();    
 }
 
 void setup() {
@@ -126,8 +95,26 @@ void setup() {
 void loop() {
 
   max_sensor.update(); // update pulse sensor
+  if (millis() - lastReportTime > REPORTING_PERIOD_MS) {
 
-  // nothing to do here
+    Serial.print("Heart rate: ");
+    Serial.print(heartRate);
+    Serial.print("bpm / SpO2: ");
+    Serial.print(oxygenLevel);
+    Serial.println("%");
+
+    if(oxygenLevel != 0 && heartRate != 0 && temperature != 0){
+      Serial.println("sending data to server!"); 
+      response = sendReadingsToServer();
+
+      Serial.print("[RESPONSE FROM SERVER]: ");
+      Serial.println(response);
+
+      heartRate = 0;
+      oxygenLevel = 0;
+    }
+    lastReportTime = millis();
+  }
 }
 
 void setupLCD() {
@@ -221,6 +208,7 @@ String sendReadingsToServer() {
 
   // Close the connection
   http.end();
+  max_sensor.begin();
+  max_sensor.setOnBeatDetectedCallback(onBeatDetected);
   return payload;
 }
-
