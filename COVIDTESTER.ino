@@ -109,8 +109,9 @@ void loop() {
       Serial.print("[RESPONSE FROM SERVER]: ");
       Serial.println(response);
 
-      showResponseOnLCD(response);
-      showReadingsOnLCD();
+      // showResponseOnLCD(response);
+      // showReadingsOnLCD();
+      resetPoxSensor();
 
       heartRate = 0;
       oxygenLevel = 0;
@@ -190,8 +191,6 @@ void showReadingsOnLCD() {
   lcd.print(" BPM ");
   delay(7000);
   lcd.noBacklight();
-  max_sensor.begin();
-  max_sensor.setOnBeatDetectedCallback(onBeatDetected);
 }
 
 void showResponseOnLCD(String text) {
@@ -229,4 +228,9 @@ String sendReadingsToServer() {
   // Close the connection
   http.end();
   return payload;
+}
+
+void resetPoxSensor() {
+  max_sensor.begin();
+  max_sensor.setOnBeatDetectedCallback(onBeatDetected);
 }
