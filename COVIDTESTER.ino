@@ -102,7 +102,7 @@ void loop() {
     Serial.print(oxygenLevel);
     Serial.println("%");
 
-    if(oxygenLevel != 0 && heartRate != 0 && temperature != 0 && oxygenLevel < 100){
+    if(oxygenLevel != 0 && temperature != 0 && oxygenLevel < 100 && heartRate > 35){
       Serial.println("sending data to server!"); 
       response = sendReadingsToServer();
 
