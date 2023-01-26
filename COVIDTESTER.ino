@@ -19,7 +19,7 @@ MAX30100 sensor;
 #define DHTTYPE DHT11 
 #define DHTPIN 18
 #define DS18B20 5
-#define REPORTING_PERIOD_MS    1000
+#define REPORTING_PERIOD_MS    3000
 PulseOximeter max_sensor;
 uint32_t lastReportTime = 0;
 int lcdColumns = 20;
