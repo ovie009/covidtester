@@ -109,8 +109,32 @@ void loop() {
       Serial.print("[RESPONSE FROM SERVER]: ");
       Serial.println(response);
 
-      // showResponseOnLCD(response);
-      // showReadingsOnLCD();
+      int startTime = millis();
+      while (1)
+      {
+        /* code */
+        showResponseOnLCD(response);
+        if (millis() - startTime > 5000)
+        {
+          /* code */
+          break;
+        }
+        
+      }
+      
+      startTime = millis();
+      while (1)
+      {
+        /* code */
+        showReadingsOnLCD();
+        if (millis() - startTime > 7000)
+        {
+          /* code */
+          break;
+        }
+        
+      }
+      
       resetPoxSensor();
 
       heartRate = 0;
@@ -189,7 +213,6 @@ void showReadingsOnLCD() {
   lcd.print("HRate: ");
   lcd.print(heartRate);
   lcd.print(" BPM ");
-  delay(7000);
   lcd.noBacklight();
 }
 
@@ -199,7 +222,6 @@ void showResponseOnLCD(String text) {
   // lcd.backlight();
   lcd.setCursor(0, 0);
   lcd.print(text);
-  delay(5000);
 }
 
 String sendReadingsToServer() {
