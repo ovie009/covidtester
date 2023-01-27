@@ -109,36 +109,13 @@ void loop() {
       Serial.print("[RESPONSE FROM SERVER]: ");
       Serial.println(response);
 
-      int startTime = millis();
-      while (1)
-      {
-        /* code */
-        showResponseOnLCD(response);
-        if (millis() - startTime > 5000)
-        {
-          /* code */
-          break;
-        }
-        
-      }
-      
-      startTime = millis();
-      while (1)
-      {
-        /* code */
-        showReadingsOnLCD();
-        if (millis() - startTime > 7000)
-        {
-          /* code */
-          break;
-        }
-        
-      }
-      
-      resetPoxSensor();
+      showResponseOnLCD(response);
+      showReadingsOnLCD();
 
       heartRate = 0;
       oxygenLevel = 0;
+      
+      resetPoxSensor();
     }
     lastReportTime = millis();
   }
@@ -213,6 +190,7 @@ void showReadingsOnLCD() {
   lcd.print("HRate: ");
   lcd.print(heartRate);
   lcd.print(" BPM ");
+  delay(5000);
   lcd.noBacklight();
 }
 
@@ -222,6 +200,7 @@ void showResponseOnLCD(String text) {
   // lcd.backlight();
   lcd.setCursor(0, 0);
   lcd.print(text);
+  delay(5000);
 }
 
 String sendReadingsToServer() {
